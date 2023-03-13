@@ -97,12 +97,10 @@ def parse_status(homework: dict) -> str:
         raise KeyError('Нет ключа homework_name в ответе API')
     homework_name = homework.get('homework_name')
     homework_status = homework.get('status')
+    verdict = HOMEWORK_VERDICTS.get(homework_status)
     if homework_status not in HOMEWORK_VERDICTS:
         raise ValueError(f'Неизвестный статус работы - {homework_status}')
-    return ('Изменился статус проверки работы "{homework_name}". {verdict}'
-            ).format(homework_name=homework_name,
-                     verdict=HOMEWORK_VERDICTS[homework_status]
-                     )
+    return (f'Изменился статус проверки работы "{homework_name}". {verdict}')
 
 
 def check_tokens() -> bool:
